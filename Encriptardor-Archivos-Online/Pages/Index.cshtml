@@ -1,0 +1,64 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="container row">
+    <div class="col-8">
+        <h1 class="text-primary">Encriptación de Archivos</h1>
+    </div>
+</div>
+<br />
+
+<br />
+@if (Model.Mensaje != null)
+{
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @Model.Mensaje
+    </div>
+}
+
+<div class="border">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="container" style="padding:30px;">
+            <h5>Archivo</h5>
+            @ViewData["NotiArch"]
+        </div>
+    </form>
+
+    <div class="form-group">
+        <div class="container" style="padding:30px;">
+
+
+            @using (Html.BeginForm("Index",
+      "Index", FormMethod.Post,
+     new { enctype = "multipart/form-data" }))
+            {
+                <h5>1. Cargar Archivo</h5>
+                <h6>Maximo 20 MB</h6>
+                <label for="file">Upload Image: </label>
+                <input type="file" name="file" id="file" maxlength="20000" />
+                <br class="btn btn-primary form-control"> <br>
+
+                @ViewBag.Message
+
+
+                <h5>2. Clave de Encriptación o Decriptado</h5>
+                <input type="text" name="textollave" id="Escriba su key" />
+                <br><br />
+
+                <h5>3. Acción DEncriptado</h5>
+
+                <button type="submit" asp-page-handler="Encriptar" class="btn btn-primary form-control bg-success">Encriptar</button>
+                <button type="submit" asp-page-handler="Desencriptar" class="btn btn-primary form-control bg-danger">Desencriptar</button>
+
+            }
+
+        </div>
+    </div>
+</div>
